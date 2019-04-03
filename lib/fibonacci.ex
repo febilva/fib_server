@@ -30,8 +30,13 @@ defmodule Fibonacci do
     calculate(n - 1) + calculate(n - 2)
   end
 
-  def start_link(initial_value \\ 0) do
+  def start_link(initial_value \\ %{}) do
     Agent.start_link(fn -> initial_value end, name: __MODULE__)
+  end
+
+  def update(key, value) do
+    Agent.update(__MODULE__, fn state -> Map.put(state, key, value) end)
+    # Agent.update(agent, fn state -> Map.put(state, key, value) end)
   end
 
   def value do
