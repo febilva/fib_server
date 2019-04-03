@@ -28,10 +28,10 @@ defmodule Fibonacci do
       false ->
         val = calculate(n - 1) + calculate(n - 2)
         update(n, val)
-        val
+        {:ok, val}
 
       true ->
-        get(n)
+        {:ok, get(n)}
     end
   end
 
@@ -51,7 +51,7 @@ defmodule Fibonacci do
     Agent.get(__MODULE__, fn state -> Map.get(state, key) end)
   end
 
-  def value do
+  def history do
     Agent.get(__MODULE__, & &1)
   end
 end
