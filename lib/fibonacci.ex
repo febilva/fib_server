@@ -25,14 +25,15 @@ defmodule Fibonacci do
   end
 
   def fib(n) do
-    # case find(n) do
-    #   false ->
-    fib(n - 1) + fib(n - 2)
-    # update(n, sum)
+    case find(n) do
+      false ->
+        sum = fib(n - 1) + fib(n - 2)
+        update(n, sum)
+        sum
 
-    #   true ->
-    #     get(n)
-    # end
+      true ->
+        get(n)
+    end
   end
 
   def start_link(initial_value \\ %{}) do
