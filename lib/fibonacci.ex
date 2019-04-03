@@ -14,9 +14,6 @@ defmodule Fibonacci do
       :world
 
   """
-  def hello do
-    :world
-  end
 
   def calculate(0) do
     0
@@ -27,7 +24,15 @@ defmodule Fibonacci do
   end
 
   def calculate(n) do
-    calculate(n - 1) + calculate(n - 2)
+    case find(n) do
+      false ->
+        val = calculate(n - 1) + calculate(n - 2)
+        update(n, val)
+        val
+
+      true ->
+        get(n)
+    end
   end
 
   def start_link(initial_value \\ %{}) do
