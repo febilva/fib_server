@@ -5,34 +5,34 @@ defmodule Fibonacci do
   Documentation for Fibonacci.
   """
 
+  def calculate(n) when is_integer(n) do
+    {:ok, fib(n)}
+  end
+
   @doc """
-  Hello world.
-
-  ## Examples
-
-      iex> Fibonacci.hello()
-      :world
-
+    accept a list of numbers to calculate and return the result
   """
+  def calculate(list) when is_list(list) do
+    {:ok, Enum.map(list, fn x -> fib(x) end)}
+  end
 
-  def calculate(0) do
+  def fib(0) do
     0
   end
 
-  def calculate(1) do
+  def fib(1) do
     1
   end
 
-  def calculate(n) do
-    case find(n) do
-      false ->
-        val = calculate(n - 1) + calculate(n - 2)
-        update(n, val)
-        {:ok, val}
+  def fib(n) do
+    # case find(n) do
+    #   false ->
+    fib(n - 1) + fib(n - 2)
+    # update(n, sum)
 
-      true ->
-        {:ok, get(n)}
-    end
+    #   true ->
+    #     get(n)
+    # end
   end
 
   def start_link(initial_value \\ %{}) do
@@ -52,6 +52,6 @@ defmodule Fibonacci do
   end
 
   def history do
-    Agent.get(__MODULE__, & &1)
+    [Agent.get(__MODULE__, & &1)]
   end
 end
