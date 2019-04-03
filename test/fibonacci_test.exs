@@ -22,7 +22,7 @@ defmodule FibonacciTest do
 
   test "when the input is a list" do
     Fibonacci.start_link()
-    assert Fibonacci.calculate([0, 1, 10]) == {:ok, [0, 1, 55]}
+    assert Fibonacci.calculate([0, 1, 100]) == {:ok, [0, 1, 354_224_848_179_261_915_075]}
   end
 
   test "history results" do
