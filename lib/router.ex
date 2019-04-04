@@ -21,6 +21,12 @@ defmodule Fibonacci.Router do
     |> send_resp(200, Poison.encode!(get_history()))
   end
 
+  get "/history_count" do
+    conn
+    |> put_resp_content_type("application/json")
+    |> send_resp(200, Poison.encode!(get_history_count()))
+  end
+
   post "/fibonacci" do
     conn
     |> put_resp_content_type("application/json")
@@ -35,6 +41,10 @@ defmodule Fibonacci.Router do
   def get_history() do
     Fibonacci.history()
     |> Enum.map(fn {k, v} -> format(k, v) end)
+  end
+
+  def get_history_count() do
+    Fibonacci.history_count()
   end
 
   def format(number, fibonacci) do

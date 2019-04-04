@@ -1,15 +1,20 @@
 defmodule Fibonacci do
   alias Fibonacci.Cache
   alias Fibonacci.History
+  alias Fibonacci.HistoryCount
   require IEx
 
   @moduledoc """
   Documentation for Fibonacci.
   """
 
+  @doc """
+    accept a integer to calculate and return the result
+  """
   def calculate(n) when is_integer(n) do
     result = fib(n)
     History.update(n, result)
+    HistoryCount.update(n)
     {:ok, result}
   end
 
@@ -17,14 +22,28 @@ defmodule Fibonacci do
     accept a list of numbers to calculate and return the result
   """
   def calculate(list) when is_list(list) do
-    {:ok, Enum.map(list, fn x -> fib(x) end)}
+    result = Enum.map(list, fn x -> fib(x) end)
+
+    for i <- list do
+      HistoryCount.update(i)
+
+      for r <- result do
+        History.update(i, r)
+      end
+    end
+
+    {:ok, result}
   end
 
   @doc """
-  history ordered from first to last call
+  history of requested numbers, ordered from first to last call
   """
   def history() do
     History.value() |> Enum.map(fn x -> x end)
+  end
+
+  def history_count() do
+    HistoryCount.value()
   end
 
   def fib(0) do

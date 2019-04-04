@@ -19,6 +19,8 @@ defmodule FibonacciTest do
   end
 
   test "when the input is a list" do
+    # Fibonacci.HistoryCount.stop()
+    # Fibonacci.HistoryCount.start_link()
     assert Fibonacci.calculate([0, 1, 100]) == {:ok, [0, 1, 354_224_848_179_261_915_075]}
   end
 
@@ -36,6 +38,15 @@ defmodule FibonacciTest do
              {10, 55},
              {100, 354_224_848_179_261_915_075}
            ]
+  end
+
+  test "history by the times that a number was called" do
+    Fibonacci.calculate(0)
+    Fibonacci.calculate(0)
+    Fibonacci.calculate(1)
+    Fibonacci.calculate(100)
+
+    assert Fibonacci.history_count() == %{0 => 2, 1 => 1, 100 => 1}
   end
 
   # test
