@@ -3,7 +3,12 @@ defmodule Fibonacci.Application do
 
   def start(_type, _args) do
     children = [
-      {Fibonacci, %{}}
+      {Fibonacci, %{}},
+      Plug.Adapters.Cowboy2.child_spec(
+        scheme: :http,
+        plug: Fibonacci.Router,
+        options: [port: 4000]
+      )
     ]
 
     opts = [strategy: :one_for_one, name: Fibonacci.Supervisor]
