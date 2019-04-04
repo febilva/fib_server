@@ -23,9 +23,20 @@ defmodule FibonacciTest do
   end
 
   test "history results should be ordered from first to last call." do
-    # Fibonacci.calculate(0)
-    # Fibonacci.calculate(1)
-    # Fibonacci.calculate(100)
-    assert Fibonacci.history() == [{0, 0}, {1, 1}, {10, 55}, {100, 354_224_848_179_261_915_075}]
+    Fibonacci.calculate(0)
+    Fibonacci.calculate(1)
+    Fibonacci.calculate(2)
+    Fibonacci.calculate(10)
+    Fibonacci.calculate(100)
+
+    assert Fibonacci.history() == [
+             {0, 0},
+             {1, 1},
+             {2, 1},
+             {10, 55},
+             {100, 354_224_848_179_261_915_075}
+           ]
   end
+
+  # test
 end

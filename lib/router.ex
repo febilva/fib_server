@@ -35,8 +35,6 @@ defmodule Fibonacci.Router do
   def get_history() do
     Fibonacci.history()
     |> Enum.map(fn {k, v} -> format(k, v) end)
-
-    # IEx.pry()
   end
 
   def format(number, fibonacci) do
