@@ -11,22 +11,19 @@ defmodule FibonacciTest do
   end
 
   test "should return 1 when the input is 2" do
-    Fibonacci.start_link()
     assert Fibonacci.calculate(2) == {:ok, 1}
   end
 
   test "should return 55 when the input is 10" do
-    Fibonacci.start_link()
     assert Fibonacci.calculate(10) == {:ok, 55}
   end
 
   test "when the input is a list" do
-    Fibonacci.start_link()
-    assert Fibonacci.calculate([0, 1, 10]) == {:ok, [0, 1, 55]}
+    assert Fibonacci.calculate([0, 1, 100]) == {:ok, [0, 1, 354_224_848_179_261_915_075]}
   end
 
-  test "history results" do
-    Fibonacci.start_link()
-    assert Fibonacci.history() == [%{}]
-  end
+  # test "history results" do
+  # Fibonacci.start_link()
+  # assert Fibonacci.history() == [{0, 0}, {100, 354_224_848_179_261_915_075}]
+  # end
 end
