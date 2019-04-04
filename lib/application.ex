@@ -4,6 +4,7 @@ defmodule Fibonacci.Application do
   def start(_type, _args) do
     children = [
       {Fibonacci.Cache, %{}},
+      {Fibonacci.History, %{}},
       Plug.Adapters.Cowboy2.child_spec(
         scheme: :http,
         plug: Fibonacci.Router,

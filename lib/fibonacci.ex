@@ -1,12 +1,16 @@
 defmodule Fibonacci do
   alias Fibonacci.Cache
+  alias Fibonacci.History
+  require IEx
 
   @moduledoc """
   Documentation for Fibonacci.
   """
 
   def calculate(n) when is_integer(n) do
-    {:ok, fib(n)}
+    result = fib(n)
+    History.update(n, result)
+    {:ok, result}
   end
 
   @doc """
@@ -14,6 +18,13 @@ defmodule Fibonacci do
   """
   def calculate(list) when is_list(list) do
     {:ok, Enum.map(list, fn x -> fib(x) end)}
+  end
+
+  @doc """
+  history ordered from first to last call
+  """
+  def history() do
+    History.value() |> Enum.map(fn x -> x end) |> Enum.reverse()
   end
 
   def fib(0) do

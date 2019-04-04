@@ -23,7 +23,6 @@ defmodule FibonacciTest do
   end
 
   # test "history results" do
-  # Fibonacci.start_link()
-  # assert Fibonacci.history() == [{0, 0}, {100, 354_224_848_179_261_915_075}]
+  #   assert Fibonacci.history() == [{0, 0}, {100, 354_224_848_179_261_915_075}]
   # end
 end
