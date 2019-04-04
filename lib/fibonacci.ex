@@ -24,7 +24,7 @@ defmodule Fibonacci do
   history ordered from first to last call
   """
   def history() do
-    History.value() |> Enum.map(fn x -> x end) |> Enum.reverse()
+    History.value() |> Enum.map(fn x -> x end)
   end
 
   def fib(0) do

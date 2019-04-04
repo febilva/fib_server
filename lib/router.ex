@@ -2,6 +2,7 @@ defmodule Fibonacci.Router do
   require IEx
   use Plug.Router
   alias Fibonacci
+  alias Fibonacci.History
 
   use Plug.Router
 
@@ -14,11 +15,11 @@ defmodule Fibonacci.Router do
   plug(:match)
   plug(:dispatch)
 
-  #   get "/" do
-  #     conn
-  #     |> put_resp_content_type("application/json")
-  #     |> send_resp(200, Poison.encode!(message()))
-  #   end
+  get "/history" do
+    conn
+    |> put_resp_content_type("application/json")
+    |> send_resp(200, Poison.encode!(get_history()))
+  end
 
   post "/fibonacci" do
     conn
@@ -28,10 +29,20 @@ defmodule Fibonacci.Router do
 
   def get_fibonacci(number_or_numbers) do
     {:ok, value} = Fibonacci.calculate(number_or_numbers)
+    number_or_numbers |> format(value)
+  end
 
+  def get_history() do
+    Fibonacci.history()
+    |> Enum.map(fn {k, v} -> format(k, v) end)
+
+    # IEx.pry()
+  end
+
+  def format(number, fibonacci) do
     %{
-      input: number_or_numbers,
-      output: value
+      number: number,
+      fibonacci: fibonacci
     }
   end
 end

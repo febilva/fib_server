@@ -18,6 +18,6 @@ defmodule Fibonacci.Cache do
   end
 
   def history do
-    [Agent.get(__MODULE__, & &1)]
+    Agent.get(__MODULE__, & &1)
   end
 end
